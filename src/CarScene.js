@@ -7,7 +7,7 @@ const CarScene = () => {
     return (
         <Canvas style={{ height: '100vh', width: '100vw' }}>
             <ambientLight intensity={0.5} />
-            <directionalLight position={[5, 5, 5]} />
+            <directionalLight position={[1, 1, 1]} />
             <CarModel />
             <OrbitControls />
         </Canvas>
