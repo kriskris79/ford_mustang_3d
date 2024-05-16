@@ -1,14 +1,24 @@
-import React, { useRef } from 'react';
-import { useLoader } from '@react-three/fiber';
-import { OBJLoader } from 'three-stdlib';
+import React, { useRef, useEffect } from 'react';
+import { useThree } from '@react-three/fiber';
+import { OBJLoader, MTLLoader } from 'three-stdlib';
 
 const CarModel = () => {
-    const obj = useLoader(OBJLoader, '/models/cars/mustang_GT.obj'); // Adjust the path accordingly
-    const ref = useRef();
+    const objRef = useRef();
+    const { scene } = useThree();
 
-    return (
-        <primitive object={obj} ref={ref} scale={[0.03, 0.03, 0.03]} />
-    );
+    useEffect(() => {
+        const mtlLoader = new MTLLoader();
+        mtlLoader.load('/models/cars/mustang_GT.mtl', (materials) => {
+            materials.preload();
+            const objLoader = new OBJLoader();
+            objLoader.setMaterials(materials);
+            objLoader.load('/models/cars/mustang_GT.obj', (object) => {
+                objRef.current.add(object);
+            });
+        });
+    }, [scene]);
+
+    return <group ref={objRef} scale={[0.05, 0.05, 0.05]} />;
 };
 
 export default CarModel;
