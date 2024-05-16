@@ -8,7 +8,7 @@ import { OrbitControls } from '@react-three/drei';
 const CarScene = () => {
     return (
         <Canvas style={{ height: '100vh', width: '100vw' }}>
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={1.5} />
             <directionalLight position={[5, 5, 5]} />
             <CarModel />
             <OrbitControls />
